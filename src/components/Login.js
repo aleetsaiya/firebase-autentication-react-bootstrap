@@ -74,8 +74,12 @@ const Login = () => {
           ></GoogleButton>
         </div>
       </div>
+      {/* Others info */}
       <div className="p-4 box mt-3 text-center">
         Don't have account? <Link to="/signup">Sign up</Link>
+      </div>
+      <div className="p-4 box mt-3 text-center">
+        Forgot password? <Link to="forgot-password">Reset password</Link>
       </div>
     </>
   );
