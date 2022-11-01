@@ -10,7 +10,7 @@ Using react and react-bootstrap to build a Firebase Authencation app, follow by 
 `Signup`: Sign up form component.
 
 ## Context
-`UserAuthContext` provides the login methods that includs all the firebase authentication logics inside.
+`UserAuthContext` provides the login user data and firebase authentication methods to the child components. It also subscribe to the user login and logout event.
 
 ## Config
 Having a `firebase.js` inside src folder, store the firebaseConfig and the initialize method for firebase.

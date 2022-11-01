@@ -1,24 +1,60 @@
-import React from "react";
-import { Form, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Form, Button, Alert } from "react-bootstrap";
 import GoogleButton from "react-google-button";
+import { useUserAuth } from "../context/UserAuthContext";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const { logIn, googleSignIn } = useUserAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    // prevent refresh on submit
+    e.preventDefault();
+    setError("");
+    try {
+      await logIn(email, password);
+      navigate("/home");
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleGoogleSignIn = async (e) => {
+    e.preventDefault();
+    try {
+      await googleSignIn();
+      navigate("/home");
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <>
       <div className="p-4 box">
         <h2 className="mb-3"> Firebase Auth Login</h2>
-        <Form>
+        {error && <Alert variant="danger">{error}</Alert>}
+        <Form onSubmit={handleSubmit}>
           {/* Email */}
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control
               type="email"
               placeholder="Emaill address"
+              onChange={(e) => setEmail(e.target.value)}
             ></Form.Control>
           </Form.Group>
 
           {/* Password */}
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Control type="password" placeholder="Password"></Form.Control>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            ></Form.Control>
           </Form.Group>
 
           {/* Submit */}
@@ -31,11 +67,15 @@ const Login = () => {
         <hr />
         {/* Google Btn */}
         <div>
-          <GoogleButton className="g-btn" type="dark"></GoogleButton>
+          <GoogleButton
+            className="g-btn"
+            type="dark"
+            onClick={handleGoogleSignIn}
+          ></GoogleButton>
         </div>
       </div>
       <div className="p-4 box mt-3 text-center">
-        Don't have account? Sign up
+        Don't have account? <Link to="/signup">Sign up</Link>
       </div>
     </>
   );
