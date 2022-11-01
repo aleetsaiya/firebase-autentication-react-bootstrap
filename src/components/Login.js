@@ -1,11 +1,8 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
 
 const Login = () => {
-  const navigate = useNavigate();
-
   return (
     <>
       <div className="p-4 box">
@@ -20,7 +17,7 @@ const Login = () => {
           </Form.Group>
 
           {/* Password */}
-          <Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Control type="password" placeholder="Password"></Form.Control>
           </Form.Group>
 
@@ -38,7 +35,7 @@ const Login = () => {
         </div>
       </div>
       <div className="p-4 box mt-3 text-center">
-        Don't have account? <Link to="/signup">Sign up</Link>
+        Don't have account? Sign up
       </div>
     </>
   );
